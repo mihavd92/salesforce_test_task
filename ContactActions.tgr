@@ -8,11 +8,9 @@ trigger ContactActions on Contact (before delete,after update,before insert,befo
     if(trigger.isBefore && trigger.isInsert){
         for(Contact contObj:trigger.new){
             contObj.LeadSource='Web';
-        
         }
         ContactTriggerHandler.preventCreatePrimaryContactOnInsert(trigger.new);
     }
-
     if(trigger.isBefore && trigger.isUpdate){
         ContactTriggerHandler.preventPrimaryContactonUpdate(trigger.newMap,trigger.oldMap);
     }
