@@ -1,0 +1,11 @@
+trigger AccountUndeleteWhenHasAssociatedContacts on Account (before delete) {
+	List<Account> accList = [select id, (select id from contacts) from Account where id in : Trigger.old];
+    
+    for(Account a : trigger.old) {
+        for(Account a1 : accList) {
+            if(a1.contacts.size() >= 1) {
+                a.addError('Account can`t be deleted, because it has related contact(s).');
+            }
+        }
+    }
+}

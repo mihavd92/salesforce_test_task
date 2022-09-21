@@ -1,0 +1,9 @@
+trigger AccountUndeleteWhenHasAssociatedContactsv2 on Account(before delete) {
+    Set<Id> accountsWithContacts = new Set<Id>();
+        for(Contact c : [SELECT Id, AccountId FROM Contact WHERE AccountId in :trigger.oldMap.keySet()]) {
+            accountsWithContacts.add(c.AccountId);
+        }
+        for(Id id : accountsWithContacts) {
+            trigger.oldMap.get(id).addError('Account can`t be deleted, because it has related contact(s).');
+        }
+}
