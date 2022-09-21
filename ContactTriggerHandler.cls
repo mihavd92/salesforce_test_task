@@ -48,8 +48,6 @@ public class ContactTriggerHandler {
                     }                       
             }
         }
-
-        
     }
     public static void preventPrimaryContactonUpdate(Map<Id,Contact> contactNewMap,Map<Id,Contact> contactOldMap){
         Set<Id> accountIdSet = new Set<Id>();
@@ -75,9 +73,6 @@ public class ContactTriggerHandler {
                         contactObj.addError('You can`t make more than one contact as primary.');
                 }
             }
-
-
         }
-
     }
 }
